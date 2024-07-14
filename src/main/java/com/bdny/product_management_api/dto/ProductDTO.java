@@ -7,21 +7,23 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
+import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.*;
+
 public class ProductDTO {
 
     private Long id;
 
-    @NotEmpty(message = "Product name cannot be empty")
-    @Size(max = 128, message = "Product name cannot exceed 128 characters")
+    @NotEmpty(message = NAME_NOT_EMPTY)
+    @Size(max = 128, message = NAME_MAX_CHARS)
     private String name;
 
-    @DecimalMin(value = "0.01", message = "Product price must be at least 0.01")
+    @DecimalMin(value = "0.01", message = MIN_PRICE)
     private BigDecimal price;
 
-    @Min(value = 0, message = "Product quantity cannot be negative")
+    @Min(value = 0, message = QUANTITY_NOT_NEGATIVE)
     private int quantity;
 
-    @NotEmpty(message = "Product brand cannot be empty")
+    @NotEmpty(message = BRAND_NOT_EMPTY)
     private String brand;
 
     public ProductDTO() {}

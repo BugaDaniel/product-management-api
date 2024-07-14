@@ -16,6 +16,12 @@ import org.hibernate.Hibernate;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.BRAND_NOT_EMPTY;
+import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.MIN_PRICE;
+import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.NAME_MAX_CHARS;
+import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.NAME_NOT_EMPTY;
+import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.QUANTITY_NOT_NEGATIVE;
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -25,18 +31,18 @@ public class Product {
     @SequenceGenerator(name = "product_id_seq", sequenceName = "product_id_seq", initialValue = 14, allocationSize = 3)
     private Long id;
 
-    @NotEmpty(message = "Product name cannot be empty")
-    @Size(max = 128, message = "Product name cannot exceed 128 characters")
+    @NotEmpty(message = NAME_NOT_EMPTY)
+    @Size(max = 128, message = NAME_MAX_CHARS)
     private String name;
 
     @Column(name = "price", columnDefinition = "NUMERIC(10, 2)") // SQL-based database specific column definition
-    @DecimalMin(value = "0.01", message = "Product price must be at least 0.01")
+    @DecimalMin(value = "0.01", message = MIN_PRICE)
     private BigDecimal price;
 
-    @Min(value = 0, message = "Product quantity cannot be negative")
+    @Min(value = 0, message = QUANTITY_NOT_NEGATIVE)
     private int quantity;
 
-    @NotEmpty(message = "Product brand cannot be empty")
+    @NotEmpty(message = BRAND_NOT_EMPTY)
     private String brand;
 
     public Product() {}
