@@ -1,9 +1,6 @@
 package com.bdny.product_management_api.dto;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
@@ -17,11 +14,13 @@ public class ProductDTO {
     @Size(max = 128, message = NAME_MAX_CHARS)
     private String name;
 
+    @NotNull
     @DecimalMin(value = "0.01", message = MIN_PRICE)
     private BigDecimal price;
 
+    @NotNull
     @Min(value = 0, message = QUANTITY_NOT_NEGATIVE)
-    private int quantity;
+    private Integer quantity;
 
     @NotEmpty(message = BRAND_NOT_EMPTY)
     private String brand;

@@ -7,10 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
@@ -35,10 +32,12 @@ public class Product {
     @Size(max = 128, message = NAME_MAX_CHARS)
     private String name;
 
+    @NotNull
     @Column(name = "price", columnDefinition = "NUMERIC(10, 2)") // SQL-based database specific column definition
     @DecimalMin(value = "0.01", message = MIN_PRICE)
     private BigDecimal price;
 
+    @NotNull
     @Min(value = 0, message = QUANTITY_NOT_NEGATIVE)
     private int quantity;
 
