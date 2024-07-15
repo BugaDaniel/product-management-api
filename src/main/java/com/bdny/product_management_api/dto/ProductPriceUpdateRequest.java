@@ -1,6 +1,7 @@
 package com.bdny.product_management_api.dto;
 
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
@@ -8,6 +9,7 @@ import static com.bdny.product_management_api.validationmessages.ProductValidati
 
 public class ProductPriceUpdateRequest {
 
+    @NotNull
     @DecimalMin(value = "0.01", message = MIN_PRICE)
     private BigDecimal newPrice;
 
