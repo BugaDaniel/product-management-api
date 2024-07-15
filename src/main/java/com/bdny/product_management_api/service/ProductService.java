@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -55,6 +57,7 @@ public class ProductService {
         return transformProductToProductDTO(savedProduct);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ProductDTO updateProduct(Long id, ProductDTO updatedProductDTO) {
         if(!Objects.equals(id, updatedProductDTO.getId())){
             throw new ProductIdViolationException(UPDATE_ID_VIOLATION);
@@ -67,6 +70,7 @@ public class ProductService {
         return transformProductToProductDTO(updatedProduct);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ProductDTO updatePrice(Long id, BigDecimal newPrice) {
         Product product = findProductById(id);
         logger.info("updating product current price {} with new price {}", product.getPrice(), newPrice);
@@ -75,6 +79,7 @@ public class ProductService {
         return transformProductToProductDTO(savedProduct);
     }
 
+    @Transactional
     public void delete(Long id) {
         logger.info("Deleting product with id: {}", id);
         findProductById(id);
