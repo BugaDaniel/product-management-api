@@ -1,7 +1,5 @@
 package com.bdny.product_management_api.exceptionhandler;
 
-import com.bdny.product_management_api.exception.ProductIdViolationException;
-import com.bdny.product_management_api.exception.ProductNotFoundException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +12,6 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<String> handleProductNotFoundException(ProductNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
-
-    @ExceptionHandler(ProductIdViolationException.class)
-    public ResponseEntity<String> handleTryToInsertProductWithIdException(ProductIdViolationException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
-    }
 
     // MethodArgumentNotValidException is thrown if
     // - jakarta.validation.constraints are not met
