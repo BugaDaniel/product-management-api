@@ -7,17 +7,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
-import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.BRAND_NOT_EMPTY;
-import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.MIN_PRICE;
-import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.NAME_MAX_CHARS;
-import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.NAME_NOT_EMPTY;
-import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.QUANTITY_NOT_NEGATIVE;
+import static com.bdny.product_management_api.validationmessages.ProductValidationMessages.*;
 
 @Entity
 @Table(name = "products")
@@ -30,6 +31,7 @@ public class Product {
 
     @NotEmpty(message = NAME_NOT_EMPTY)
     @Size(max = 128, message = NAME_MAX_CHARS)
+    @Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = NAME_INVALID_CHARS)
     private String name;
 
     @NotNull
@@ -42,6 +44,7 @@ public class Product {
     private int quantity;
 
     @NotEmpty(message = BRAND_NOT_EMPTY)
+    @Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = BRAND_INVALID_CHARS)
     private String brand;
 
     public Product() {}

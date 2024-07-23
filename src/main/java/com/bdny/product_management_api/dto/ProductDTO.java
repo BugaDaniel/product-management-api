@@ -12,6 +12,7 @@ public class ProductDTO {
 
     @NotEmpty(message = NAME_NOT_EMPTY)
     @Size(max = 128, message = NAME_MAX_CHARS)
+    @Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = NAME_INVALID_CHARS)
     private String name;
 
     @NotNull
@@ -23,6 +24,7 @@ public class ProductDTO {
     private Integer quantity;
 
     @NotEmpty(message = BRAND_NOT_EMPTY)
+    @Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = BRAND_INVALID_CHARS)
     private String brand;
 
     public ProductDTO() {}
